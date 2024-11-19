@@ -70,7 +70,7 @@ export default function Page() {
                             </p>
                         </div>
 
-                        <SignIn signUpForceRedirectUrl='/dashboard'/>
+                        <SignIn signUpForceRedirectUrl='/dashboard' forceRedirectUrl='/dashboard' fallbackRedirectUrl='/dashboard'/>
 
                     </div>
                 </main>
