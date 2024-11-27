@@ -16,7 +16,8 @@ export async function POST(request){
             jobTitle,
             jobDesc,
             jobExperience,
-            jsonResponse
+            jsonResponse,
+            createdBy
         } = reqBody;
 
         const ExistInterView = await Interview.findOne({mockid})
@@ -30,7 +31,7 @@ export async function POST(request){
             jobDesc,
             jobExperience,
             jsonResponse,
-            createdBy : "Debraj",
+            createdBy ,
             createdAt : moment().format('DD-MM-yyyy').toString()
         })
         
@@ -41,7 +42,7 @@ export async function POST(request){
         return Response.json({
             message : "Successfull Save Information!!",
             success : true,
-            myUserId : savedInterview._id
+            myUserId : mockid
         })
 
     } catch (error) {

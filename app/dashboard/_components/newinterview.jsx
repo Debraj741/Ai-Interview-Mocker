@@ -26,7 +26,8 @@ export default function AddNewInterview() {
         jobTitle : "",
         jobDesc : "",
         JobExperience : "",
-        jsonResponse : ""
+        jsonResponse : "",
+        createdBy : ""
     })
     const [loading, setLoading] = useState(false)
     // const [jsonResponse, setJsonResponse] = useState([])
@@ -47,15 +48,21 @@ export default function AddNewInterview() {
         const newId = uuidv4();
         userdetails.mockid = newId;
         userdetails.jsonResponse = MockResponse;
+        userdetails.createdBy = user?.primaryEmailAddress?.emailAddress
         console.log(userdetails);
 
         const response = await axios.post("/api/interviews/newinterview",userdetails)
-        console.log("SignUp Success!!",response);
+        if(response){
+            console.log("SignUp Success!!");
+            console.log(response.data.myUserId);
 
-
+            router.push('/dashboard/interview/'+response.data.myUserId)
+        }
+        else{
+            console.log("Response Error!!");
+        }
         setLoading(false)
         setOpenDialog(false)
-        // router.push()
     }
 
   return (
