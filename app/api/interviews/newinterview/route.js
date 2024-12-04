@@ -42,7 +42,7 @@ export async function POST(request){
         return Response.json({
             message : "Successfull Save Information!!",
             success : true,
-            myUserId : mockid
+            myUserId : newInterviewEntry._id
         })
 
     } catch (error) {
