@@ -15,7 +15,7 @@ export async function POST(request){
             mockid,
             jobTitle,
             jobDesc,
-            jobExperience,
+            JobExperience,
             jsonResponse,
             createdBy
         } = reqBody;
@@ -24,17 +24,19 @@ export async function POST(request){
         if(ExistInterView){
             return Response.json({error : "InterView Already Exist!!"},{status: 400});
         }
-
+        console.log(JobExperience);
+        
         const newInterviewEntry = new Interview({
             mockid,
             jobTitle,
             jobDesc,
-            jobExperience,
+            jobExperience : JobExperience,
             jsonResponse,
             createdBy ,
             createdAt : moment().format('DD-MM-yyyy').toString()
         })
         
+        console.log(newInterviewEntry.jobExperience);
         console.log(newInterviewEntry);
         
         const savedInterview = await newInterviewEntry.save()
@@ -42,7 +44,7 @@ export async function POST(request){
         return Response.json({
             message : "Successfull Save Information!!",
             success : true,
-            myUserId : newInterviewEntry._id
+            myUserId : newInterviewEntry.mockid
         })
 
     } catch (error) {

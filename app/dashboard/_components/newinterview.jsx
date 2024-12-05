@@ -49,7 +49,9 @@ export default function AddNewInterview() {
         userdetails.mockid = newId;
         userdetails.jsonResponse = MockResponse;
         userdetails.createdBy = user?.primaryEmailAddress?.emailAddress
+
         console.log(userdetails);
+        console.log(userdetails.JobExperience);
 
         const response = await axios.post("/api/interviews/newinterview",userdetails)
         if(response){

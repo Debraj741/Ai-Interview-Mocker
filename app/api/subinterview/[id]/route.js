@@ -13,7 +13,7 @@ export async function POST(request){
 
         console.log(myId);
         
-        const myInterview = await Interview.findById({_id: myId})
+        const myInterview = await Interview.findOne({mockid: myId})
 
         if(myInterview){
             return Response.json({
