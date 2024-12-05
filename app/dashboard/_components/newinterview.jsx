@@ -41,7 +41,7 @@ export default function AddNewInterview() {
         const InputPromt = "Job Position : "+userdetails.jobTitle+", Job Description: "+userdetails.jobDesc+", Job Experience: "+userdetails.JobExperience+", Depends on this information please give me "+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+" Interview question with expected answered in json format, Give Question and Answered as field in JSON."
 
         const result = await chatSession.sendMessage(InputPromt);
-        const MockResponse = (result.response.text()).replace('```json','').replace('```','')
+        const MockResponse = (result.response.text()).replace('```json','').replace('\n```','')
 
         console.log(MockResponse);
         // setJsonResponse(MockResponse);
