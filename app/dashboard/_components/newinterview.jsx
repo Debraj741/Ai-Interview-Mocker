@@ -56,7 +56,7 @@ export default function AddNewInterview() {
             console.log("SignUp Success!!");
             console.log(response.data.myUserId);
 
-            router.push('/dashboard/interview/'+response.data.myUserId)
+            router.push('/dashboard/myinterview/'+response.data.myUserId)
         }
         else{
             console.log("Response Error!!");
