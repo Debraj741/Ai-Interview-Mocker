@@ -1,6 +1,5 @@
 import { connectDB } from "@/app/dbConfig/dbConfig";
 import FeedBack from "../../../models/InterviewQuestionAnswerFeedbackModel";
-import moment from 'moment/moment'
 
 // Now I am connect with Database..
 connectDB()

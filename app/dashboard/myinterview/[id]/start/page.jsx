@@ -52,7 +52,7 @@ export default function StartInterview({params}) {
           <Button className='font-bold' onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>
         }
 
-        <Link href={`/dashboard/myinterview/${params.id}/feedback`}>
+        <Link href={`/dashboard/myinterview/${params.id}/myfeedback`}>
         {activeQuestionIndex == mockInterviewQuestions?.length-1 && <Button className='font-bold'>End Interview</Button>}
         </Link>
         
