@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import QuestionSection from "./_components/QuestionSection"
 import RecordAnswerSection from "./_components/RecordAnswerSection"
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function StartInterview({params}) {
     const [interviewData, setInterviewData] = useState("")
@@ -51,7 +52,9 @@ export default function StartInterview({params}) {
           <Button className='font-bold' onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>
         }
 
+        <Link href={`/dashboard/myinterview/${params.id}/feedback`}>
         {activeQuestionIndex == mockInterviewQuestions?.length-1 && <Button className='font-bold'>End Interview</Button>}
+        </Link>
         
       </div>
     </div>

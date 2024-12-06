@@ -30,6 +30,7 @@ export default function RecordAnswerSection({mockInterviewQuestions,activeQuesti
         results,
         startSpeechToText,
         stopSpeechToText,
+        setResults
     } = useSpeechToText({
         continuous: true,
         useLegacyResults: false
@@ -86,8 +87,10 @@ export default function RecordAnswerSection({mockInterviewQuestions,activeQuesti
       const response = await axios.post("/api/subinterview/feedback",feedbackPart)
       if(response){
         toast(response.data.message)
+        setUserAnswer('')
+        setResults([])
       }
-      setUserAnswer('')
+      setResults([])
       setLoading(false)
     }
 
