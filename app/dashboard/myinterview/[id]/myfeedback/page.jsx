@@ -32,11 +32,11 @@ export default function FeedBack({params}) {
 
   return (
     <div className='p-10'>
-      <h2 className='text-3xl font-bold text-green-500'>Congragulation!!</h2>
-      <h2 className='font-bold my-2 text-2xl'>Here is Your InterView FeedBack</h2>
-      <h2 className='font-bold my-3 text-primary text-xl'>Your Overall Interview Rating : </h2>
+      <h2 className='text-4xl text-center font-bold text-green-500'>Congragulation!!</h2>
+      {/* Future tusk */}
+      {/* <h2 className='font-bold my-3 text-primary text-xl'>Your Overall Interview Rating : </h2> */}
 
-      <h2 className='text-lg font-bold text-gray-700'>Find Below Interview Question with Correct Answer & Feedback for Improvement - </h2>
+      <h2 className='text-lg mt-5 font-bold underline text-blue-700'>Find Below Interview Question with Correct Answer & Feedback for Improvement - </h2>
 
       {feedbackList && feedbackList.map((item,ind)=>(
         <Collapsible key={ind}>
