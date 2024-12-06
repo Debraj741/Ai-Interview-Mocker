@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import { LightbulbIcon, Volume2 } from 'lucide-react'
 import React from 'react'
 

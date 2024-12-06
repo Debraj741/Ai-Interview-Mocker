@@ -44,7 +44,7 @@ export async function POST(request){
         return Response.json({
             message : "Successfull Save Information!!",
             success : true,
-            myUserId : newInterviewEntry.mockid
+            myUserId : savedInterview.mockid
         })
 
     } catch (error) {

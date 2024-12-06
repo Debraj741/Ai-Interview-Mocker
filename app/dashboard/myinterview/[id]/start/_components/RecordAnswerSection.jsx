@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text';
-import { Ghost, Mic, StopCircle } from 'lucide-react'
+import { Mic, StopCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { chatSession } from '@/utils/gemini'
 import moment from 'moment'
