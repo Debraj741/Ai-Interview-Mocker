@@ -4,10 +4,25 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text';
-import { Ghost, Mic } from 'lucide-react'
+import { Ghost, Mic, StopCircle } from 'lucide-react'
+import { toast } from 'sonner'
+import { chatSession } from '@/utils/gemini'
+import moment from 'moment'
+import axios from 'axios'
 
-export default function RecordAnswerSection() {
-    const [userAnswer, setUserAnswer] = useState("")
+export default function RecordAnswerSection({mockInterviewQuestions,activeQuestionIndex,interviewData}) {
+    const [userAnswer, setUserAnswer] = useState('')
+    const [feedbackPart, setFeedbackPart] = useState({
+      mockidRef : "",
+      question : "",
+      correctAns : "",
+      userAns : "",
+      feedBack : "",
+      rating : "",
+      userEmail : "",
+      createdAt : ""
+    })
+    const [loading, setLoading] = useState(false)
     const {
         error,
         interimResult,
@@ -24,9 +39,57 @@ export default function RecordAnswerSection() {
       results.map((res)=>(
         setUserAnswer(prevAns=>prevAns+res?.transcript)
       ))
-    
+      
     }, [results])
+
+    useEffect(() => {
+      if(!isRecording && userAnswer.length>0){
+        UpdateUserAnswer();
+      }
+    }, [userAnswer])
     
+    
+    const StartStopRecording = async()=>{
+      if(isRecording){
+        stopSpeechToText()
+      }
+      else{
+        startSpeechToText()
+      }
+    }
+
+    const UpdateUserAnswer = async()=>{
+      setLoading(true)
+      
+      // Feed Back Collect
+      const feedBackPrompt = "Question: "+mockInterviewQuestions[activeQuestionIndex]?.Question+", User Answer: "+userAnswer+", Depends on Question and User Answer for given interview question "+" please give us rating for answer and feedback as area of improvement if any "+"in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
+
+      const result = await chatSession.sendMessage(feedBackPrompt);
+
+      const mockJsonResponse = (result.response.text()).replace('```json','').replace('\n```','')
+
+      console.log(mockJsonResponse);
+      const jsonFeedbackResponse = JSON.parse(mockJsonResponse)
+
+      // Set FeedBackPart to save it to database
+      feedbackPart.mockidRef = interviewData.mockid
+      feedbackPart.question = mockInterviewQuestions[activeQuestionIndex]?.Question
+      feedbackPart.correctAns = mockInterviewQuestions[activeQuestionIndex]?.Answer
+      feedbackPart.userAns = userAnswer
+      feedbackPart.feedBack = jsonFeedbackResponse.feedback
+      feedbackPart.rating = jsonFeedbackResponse.rating
+      feedbackPart.userEmail = interviewData.createdBy
+      feedbackPart.createdAt = moment().format('DD-MM-yyyy')
+
+      console.log(feedbackPart);
+      
+      const response = await axios.post("/api/subinterview/feedback",feedbackPart)
+      if(response){
+        toast(response.data.message)
+      }
+      setUserAnswer('')
+      setLoading(false)
+    }
 
   return (
     <div className='flex items-center justify-center flex-col'>
@@ -42,11 +105,9 @@ export default function RecordAnswerSection() {
             />
         </div>
 
-        <Button variant={isRecording ? 'outline': 'default'} onClick={isRecording?stopSpeechToText:startSpeechToText} className='my-10 font-bold'>
-            {isRecording? <h2 className='flex gap-2 text-red-600'><Mic/> Stop Recording</h2>:'Record Answer'}
+        <Button variant={'outline'} onClick={StartStopRecording} className='my-10 font-bold'>
+            {isRecording? <h2 className='flex gap-2 text-red-600 items-center animate-pulse'> <StopCircle/> Stop Recording</h2>: <h2 className='flex gap-2 items-center text-blue-600'><Mic/> Record Answer</h2>}
         </Button>
-
-        <Button onClick={()=>console.log(userAnswer)}>Show Answer</Button>
 
     </div>
   )

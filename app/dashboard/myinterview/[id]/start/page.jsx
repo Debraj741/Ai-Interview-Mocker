@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import QuestionSection from "./_components/QuestionSection"
 import RecordAnswerSection from "./_components/RecordAnswerSection"
+import { Button } from '@/components/ui/button';
 
 export default function StartInterview({params}) {
     const [interviewData, setInterviewData] = useState("")
@@ -37,7 +38,21 @@ export default function StartInterview({params}) {
         />
 
         {/* Video/Audio Recording */}
-        <RecordAnswerSection/>
+        <RecordAnswerSection
+        mockInterviewQuestions = {mockInterviewQuestions}
+        activeQuestionIndex = {activeQuestionIndex}
+        interviewData = {interviewData}
+        />
+      </div>
+
+      <div className='flex justify-end gap-6'>
+        {activeQuestionIndex>0 && <Button className='font-bold' onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
+        {activeQuestionIndex != mockInterviewQuestions?.length-1 && 
+          <Button className='font-bold' onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>
+        }
+
+        {activeQuestionIndex == mockInterviewQuestions?.length-1 && <Button className='font-bold'>End Interview</Button>}
+        
       </div>
     </div>
   )
