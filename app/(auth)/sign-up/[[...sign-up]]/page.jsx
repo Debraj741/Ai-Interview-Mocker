@@ -1,5 +1,9 @@
 import { SignUp } from '@clerk/nextjs'
 
 export default function Page() {
-  return <SignUp signInForceRedirectUrl={'/dashboard'}/>
+  return(
+    <div className='flex items-center justify-center'>
+      <SignUp signInForceRedirectUrl={'/dashboard'}/>
+    </div>
+    ) 
 }
