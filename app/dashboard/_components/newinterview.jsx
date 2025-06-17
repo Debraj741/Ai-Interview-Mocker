@@ -71,7 +71,7 @@ export default function AddNewInterview() {
     <div>
       <div className='p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all text-xl font-bold hover:text-2xl text-center'
       onClick={()=>setOpenDialog(true)}>
-        + Add New
+        + Add Mock Interview
         </div>
 
         <Dialog open={openDialog}>

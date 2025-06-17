@@ -28,8 +28,8 @@ export default function InterviewList() {
     }
 
   return (
-    <div>
-      <h2 className='font-bold text-xl'>Previous Mock InterViews -- </h2>
+    <div className='mt-20'>
+      <h2 className='font-bold text-xl mb-5'>Previous Mock InterViews -- </h2>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3'>
         {myAllPreviousInterview && myAllPreviousInterview.map((item,ind)=>(
             <InterviewItemCard
