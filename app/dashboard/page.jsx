@@ -14,7 +14,7 @@ export default function Dashboard() {
       </div>
 
       {/* Features List */}
-      <FeatureAssistant/>
+      {/* <FeatureAssistant/> */}
 
       {/* Previous Interview List */}
 
